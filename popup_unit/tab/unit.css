@@ -1,0 +1,41 @@
+#tab *:focus {
+    outline: none;
+}
+#tab ::-webkit-scrollbar{
+  display: none;
+}
+
+#tab #tabs {
+  background-color: #BBFFEE;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+#tab #tabs li {
+  list-style-type: none;
+  border-bottom: 4px solid transparent;
+  padding: 4px 8px 2px;
+}
+
+#tab #tabs li.active, #tabs li:hover {
+  background: #33FFAA;
+}
+
+#tab #tabs li.active {
+  border-bottom: 4px solid green;
+}
+
+#tab .tab-content {
+  height: 251px;  // for slide animation initiailize
+}
+
+#tab .tab-pane {
+  display: none;
+}
+
+#tab .tab-pane.active {
+  display: block;
+}

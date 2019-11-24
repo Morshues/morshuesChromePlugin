@@ -1,0 +1,13 @@
+body form table table fieldset input.ex_btn {
+  position: absolute;
+  top: 14px;
+  left: auto;
+  right: 0;
+  margin: 4px;
+  padding: 6px;
+  text-indent: 0px;
+}
+
+body form table table fieldset input.ex_btn.second {
+  top: 46px;
+}

@@ -1,0 +1,75 @@
+{
+  "manifest_version": 2,
+
+  "name": "Morshues chrome extension",
+  "description": "Morshues self-use multifunction chrome extension",
+  "version": "1.3",
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "contextMenus"
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["func/right_click_helper/script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": ["<all_urls>"],
+      "js": ["func/daily_check/model.js", "func/daily_check/script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": [
+        "https://www.steamgifts.com/giveaway/*", 
+        "https://www.steamgifts.com/giveaways/search?type=wishlist",
+        "https://www.steamgifts.com/giveaways/search?page=2&type=wishlist"
+      ],
+      "js": ["func/steamgift/script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": [
+        "https://steamcommunity.com/id/Morshues/inventory/"
+      ],
+      "js": ["func/steamtool/model.js", "func/steamtool/script.js"],
+      "run_at": "document_end"
+    },{
+      "run_at" : "document_end",
+      "matches": ["http://twtraffic.tra.gov.tw/twrail/TW_Quicksearch.aspx"],
+      "css": ["func/twtraffic/style.css"],
+      "js": ["func/twtraffic/script.js"]
+    },{
+      "matches": ["http://*.pixnet.net/*"],
+      "js": ["func/pixnet_script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": ["https://udn.com/*"],
+      "js": ["func/udn_script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["func/fb_stalker/model.js", "func/fb_stalker/script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": ["https://www.facebook.com/animategamer/*", "https://www.facebook.com/pg/animategamer/posts/"],
+      "js": ["func/animategamer/model.js", "func/animategamer/script.js"],
+      "run_at": "document_end"
+    },{
+      "matches": ["https://ani.gamer.com.tw/animeVideo.php?sn=*"],
+      "js": ["func/animategamer/model.js", "func/animategamer/script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "page": "background.html"
+  }
+}
