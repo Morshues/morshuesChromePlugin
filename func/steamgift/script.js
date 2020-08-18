@@ -15,6 +15,11 @@ function wish_list_scan() {
   var items = [];
   var data = document.getElementsByClassName("widget-container")[0].childNodes[3].childNodes[5].childNodes;
   for (var i = 1; i < data.length; i+=2) {
+    // Skip AD
+    if (data[i].className == "") {
+      continue;
+    }
+
     // joined
     var fadedivs = data[i].getElementsByClassName("is-faded");
     if (fadedivs.length > 0) {
