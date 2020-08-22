@@ -6,7 +6,7 @@ function AnimateGamerModel() {
 
   this.TodayText = function() {
     var today = new Date(); 
-    return "[" + ("0"+(today.getMonth()+1)).slice(-2) + "/" + ("0"+today.getDate()).slice(-2) + " 動漫通]";
+    return ("0"+(today.getMonth()+1)).slice(-2) + "/" + ("0"+today.getDate()).slice(-2) + " 動漫通";
   }
 
   this.isSameDay = function() {

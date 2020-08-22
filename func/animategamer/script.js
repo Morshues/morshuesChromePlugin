@@ -1,24 +1,33 @@
 var dataModel = new AnimateGamerModel();
 
+function findNodeByRegex(blocks, regexText, useInnerText = false) {
+  // var aTags = parent.getElementsByTagName(tagName);
+  var found;
+
+  cmdRegex = RegExp(regexText, 'g');
+  for (var i = 0; i < blocks.length; i++) {
+    text = blocks[i].textContent;
+    if (useInnerText) {
+      text = blocks[i].innerText;
+    }
+    if (cmdRegex.test(text)) {
+      found = blocks[i];
+      break;
+    }
+  }
+
+  return found;
+}
+
 /* Find */
 function find_block() {
-  blocks = document.getElementsByClassName("userContentWrapper");
+  blocks = document.getElementsByClassName("du4w35lb k4urcfbm l9j0dhe7 sjgh65i0");
   if (blocks <= 0) {
     setTimeout(find_block, 1000);
     return;    
   }
 
-  tar_block = null;
-  for (var i = 0; i < blocks.length; i++) {
-    if (blocks[i].getElementsByClassName("text_exposed_root").length == 0) {
-      continue;
-    }
-    compare_txt = blocks[i].getElementsByClassName("text_exposed_root")[0].getElementsByTagName("p")[0].childNodes[0].textContent;
-    if (dataModel.TodayText() === compare_txt) {
-      tar_block = blocks[i];
-      break;
-    }
-  }
+  tar_block = findNodeByRegex(blocks, "\\[" + dataModel.TodayText() + "\\]", true);
 
   if (tar_block == null) {
     window.scrollTo(0, document.body.scrollHeight);
@@ -29,8 +38,7 @@ function find_block() {
 }
 
 function click_comment(tar_block) {
-  links = tar_block.getElementsByTagName("a");
-  // links = tar_block.getElementsByClassName("UFILastCommentComponent")[0].getElementsByClassName("UFIPagerLink");
+  links = tar_block.getElementsByClassName("oi732d6d ik7dh3pa qv66sw1b c1et5uql a8c37x1j muag1w35 enqfppq2 jq4qci2q a3bd9o3v lrazzd5p m9osqain");
   if (links[links.length-1].innerText.startsWith("檢視另") || links[links.length-1].innerText.startsWith("查看更多留言")) {
     links[links.length-1].click();
 
@@ -39,8 +47,7 @@ function click_comment(tar_block) {
 }
 
 function scan_max(tar_block) {
-  comments = tar_block.getElementsByTagName("ul")[1].children;
-  // comments = tar_block.getElementsByClassName("UFIComment");
+  comments = tar_block.getElementsByClassName("ecm0bbzt e5nlhep0 a8c37x1j");
   if (comments.length < 3) {
     setTimeout(function() { scan_max(tar_block); }, 1000);
     return;
@@ -48,7 +55,7 @@ function scan_max(tar_block) {
 
   count_array = [null, 0, 0, 0, 0];
   for (var i = 0; i < comments.length; i++) {
-    content_block = comments[i].getElementsByClassName("_3l3x")[0];
+    content_block = comments[i];
     if (content_block == null) {
       continue;
     }
@@ -63,6 +70,7 @@ function scan_max(tar_block) {
       temp_value = count_array[i];
     }
   }
+  max_index
   return answer_get(max_index);
 }
 
@@ -128,3 +136,4 @@ dataModel.load(function() {
     paste_block();
   }
 });
+
