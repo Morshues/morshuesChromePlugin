@@ -4,6 +4,14 @@ function GamerLoginModel() {
   this.isSuccess = false;
   this.msg = '';
 
+  this.dateStr = function() {
+    timezone = "zh-TW";
+    date = new Date(self.timestamp);
+    dateStr = date.toLocaleDateString(timezone);
+    timeStr = date.toLocaleTimeString(timezone);
+    return dateStr + ' ' + timeStr;
+  }
+
   this.save = function(timestamp, json, callback) {
     self.timestamp = timestamp;
     self.isSuccess = false;

@@ -57,7 +57,7 @@ function main() {
   getToken(timestamp, function(text) {
     login(text, function(json) {
       dataModel.save(timestamp, json, function() {
-        console.log(timestamp, json, "saved");
+        console.log(dataModel.dateStr(), json, "saved");
       });
     });
   })  
