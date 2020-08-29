@@ -6,14 +6,20 @@ function GamerLoginModel() {
 
   this.dateStr = function() {
     timezone = "zh-TW";
-    date = new Date(self.timestamp);
+    date = new Date(this.lastUpdatedTime);
     dateStr = date.toLocaleDateString(timezone);
     timeStr = date.toLocaleTimeString(timezone);
     return dateStr + ' ' + timeStr;
   }
 
+  this.isLoggedIn = function() {
+    d1 = parseInt(((Date.now()+28800000) / 86400000)); 
+    d2 = parseInt(((this.lastUpdatedTime+28800000) / 86400000));
+    return d1 == d2;
+  }
+
   this.save = function(timestamp, json, callback) {
-    self.timestamp = timestamp;
+    self.lastUpdatedTime = timestamp;
     self.isSuccess = false;
     if (json.hasOwnProperty("data")
      || json.hasOwnProperty("error") && json["error"]["message"] == "今天您已經簽到過了喔") {

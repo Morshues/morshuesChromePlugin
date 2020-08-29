@@ -1,4 +1,4 @@
-
+// TODO: haven't load the dataModel from storage yet
 var dataModel = new GamerLoginModel();
 
 function getToken(timestamp, callback) {
@@ -54,6 +54,11 @@ function login(token, callback) {
 
 function main() {
   timestamp = Date.now();
+
+  if (dataModel.isLoggedIn()) {
+    return;
+  }
+
   getToken(timestamp, function(text) {
     login(text, function(json) {
       dataModel.save(timestamp, json, function() {
@@ -64,4 +69,4 @@ function main() {
 }
 
 main();
-setInterval(main, 3600000);
+setInterval(main, 600000);
