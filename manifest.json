@@ -67,6 +67,21 @@
       "matches": ["https://ani.gamer.com.tw/animeVideo.php?sn=*"],
       "js": ["func/animategamer/model.js", "func/animategamer/script.js"],
       "run_at": "document_end"
+    },{
+      // gamer_ad_clicker
+      "matches": [
+        "https://fuli.gamer.com.tw/shop_detail.php?sn=*",
+        "https://fuli.gamer.com.tw/buyD.php?ad=1&sn=*",
+        "https://fuli.gamer.com.tw/message_done.php?type=3&sn=*"
+      ],
+      "js": ["func/gamer_ad_clicker/script.js"],
+      "run_at": "document_end"
+    },{
+      // google_ad_clicker
+      "matches": ["https://*.safeframe.googlesyndication.com/safeframe/*"],
+      "js": ["func/google_ad_clicker/script.js"],
+      "run_at": "document_end",
+      "all_frames": true
     }
   ],
   "background": {

@@ -49,6 +49,7 @@ loadLib("steamgift");
 loadLib("steamtool");
 loadLib("daily_check");
 loadLib("fb_stalker");
+loadLib("gamer_ad_clicker");
 
 // This Unit load at final for lib re-consruct
 loadUnit('tab');
