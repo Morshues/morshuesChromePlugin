@@ -33,6 +33,11 @@ function buildCtrlPanel() {
 
   ctrlPanel.append(document.createElement('br'));  
 
+  let btnAppend = document.createElement('span');
+  btnAppend.innerText = 'Append Button';
+  btnAppend.addEventListener('click', appendAll);
+  ctrlPanel.append(btnAppend);
+
   priceInput.addEventListener('input', function() { 
     earnPrice = parseFloat(priceInput.value);
     earnPriceLabel.innerText = '得到 ' + earnPrice;
@@ -59,6 +64,14 @@ function appendRun(item) {
   }
   btnRun.style = 'position:absolute;top:3px;left:3px;background:white;z-index:99;';
   item.append(btnRun);
+
+  var btnGoo = document.createElement('span');
+  btnGoo.innerText = 'G';
+  btnGoo.onclick = function() { 
+    setTimeout(()=>{goo(item)}, 100);
+  }
+  btnGoo.style = 'position:absolute;top:3px;right:3px;background:white;z-index:99;';
+  item.append(btnGoo);
 
   var checkboxRun = document.createElement('checkbox');
   checkboxRun.style = 'position:absolute;top:3px;right:3px;z-index:99;';
@@ -98,6 +111,59 @@ function step4() {
   } else {
     setTimeout(step4, 100);
   }
+}
+
+let gooFailedCount = 100;
+function goo(item) {  
+  item.getElementsByTagName('a')[0].click();
+
+  let btn;
+  try {
+    btn = document.getElementById("iteminfo1_item_scrap_actions").getElementsByTagName("DIV")[1].getElementsByTagName("a")[0];
+  } catch {
+    console.warn("gooStep1 exception");
+    if (--gooFailedCount == 0) return;
+  }
+  console.log(btn, btn.href, typeof btn.href)
+  if (btn == null || !btn.href.includes("GrindIntoGoo")) {
+    setTimeout(()=>{goo(item)}, 200);
+    return
+  }
+  btn.click();
+
+  setTimeout(gooStep2, 200);
+}
+
+function gooStep2() {
+  let btn;
+  try {
+    btn = document.getElementsByClassName("btn_green_steamui btn_medium")[0].getElementsByTagName("SPAN")[0];
+  } catch {
+    console.warn("gooStep2 exception");
+    if (--gooFailedCount == 0) return;
+  }
+  if (btn == null) {
+    setTimeout(gooStep2, 200);
+    return
+  }
+  btn.click();
+
+  setTimeout(gooStep3, 200);
+}
+
+function gooStep3() {
+  let btn;
+  try {
+    btn = document.getElementsByClassName("newmodal")[1].getElementsByTagName("SPAN")[0];
+  } catch {
+    console.warn("gooStep3 exception");
+    if (--gooFailedCount == 0) return;
+  }
+  if (btn == null) {
+    setTimeout(gooStep3, 200);
+    return
+  }
+  btn.click();
 }
 
 model.load(function() {
