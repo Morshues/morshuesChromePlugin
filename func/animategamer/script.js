@@ -38,7 +38,7 @@ function find_block() {
 }
 
 function click_comment(tar_block) {
-  links = tar_block.getElementsByClassName("oi732d6d ik7dh3pa qv66sw1b c1et5uql a8c37x1j muag1w35 enqfppq2 jq4qci2q a3bd9o3v lrazzd5p m9osqain");
+  links = tar_block.getElementsByClassName("j83agx80 fv0vnmcu hpfvmrgz");
   if (links[links.length-1].innerText.startsWith("檢視另") || links[links.length-1].innerText.startsWith("查看更多留言")) {
     links[links.length-1].click();
 
@@ -97,7 +97,7 @@ function paste_block() {
   var container = document.getElementsByClassName('mainmenu on_top')[0];
   var answerSpan = document.createElement('span');
   answerSpan.style = 'position:absolute;top:0;right:0px;font-size:30px;';
-  answerSpan.innerText = 'ans - ' + dataModel.answer + ' - (' + dataModel.date_str.substring(1,6) + ')';
+  answerSpan.innerText = 'ans - ' + dataModel.answer + ' - (' + dataModel.date_str.substring(0,5) + ')';
   container.append(answerSpan);
 
   // document.getElementsByClassName('anime-quiz')[0].getElementsByTagName('a')
