@@ -1,44 +1,10 @@
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function waitItem(query) {
-  return new Promise(async(resolve, reject) => {
-    count = 100
-    while (document.querySelector(query) == null) {
-      await sleep(100)
-      count--
-      if (count <= 0) {
-        reject("Can't find - " + query)
-        return
-      }
-    }
-    resolve(document.querySelector(query))
-  })
-}
-
-async function waitCondition(condition) {
-    return new Promise(async(resolve, reject) => {
-    count = 100
-    while (!condition()) {
-      await sleep(500)
-      count--
-      if (count <= 0) {
-        reject("Condition not established")
-        return
-      }
-    }
-    resolve()
-  })
-}
-
 async function ad1() {
   try {
     let btn1 = await waitItem(".rewardResumebutton")
     btn1.click()
     console.log("clicked resume")
-  } catch {
+  } catch(e) {
     console.warn("resume reward error")
   }
 
@@ -60,7 +26,7 @@ async function ad1() {
     let btn2 = await waitItem(".videoAdUiSkipButton")
     btn2.click()
     console.log("clicked skip")
-  } catch {
+  } catch(e) {
     console.warn("skip video error")
   }
 }
@@ -69,7 +35,7 @@ async function ad2() {
   try {
     await waitCondition(() => { return document.querySelector("#count_down").style.visibility == 'hidden' })
     console.log("wait count_down success")
-  } catch {
+  } catch(e) {
     console.warn("wait count_down error")
   }
 
@@ -77,7 +43,7 @@ async function ad2() {
     let btn1 = await waitItem("#close_button")
     btn1.click()
     console.log("clicked skip")
-  } catch {
+  } catch(e) {
     console.warn("skip video error")
   }
 

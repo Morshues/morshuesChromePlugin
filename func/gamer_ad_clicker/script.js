@@ -1,23 +1,4 @@
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function waitItem(query) {
-  return new Promise(async(resolve, reject) => {
-    count = 100
-    while (document.querySelector(query) == null) {
-      await sleep(100)
-      count--
-      if (count <= 0) {
-        reject("Can't find - " + query)
-        return
-      }
-    }
-    resolve(document.querySelector(query))
-  })
-}
-
 function addButton(parentNode, text, callback) {
   var btn = document.createElement('input')
   btn.type = 'button'
@@ -31,14 +12,14 @@ async function process1() {
   try {
     let btn1 = await waitItem(".btn-base.c-accent-o")
     btn1.click()    
-  } catch {
+  } catch(e) {
     console.warn("redeem button error")
   }
 
   try {
     let btn2 = await waitItem("dialog .btn-primary")
     btn2.click()    
-  } catch {
+  } catch(e) {
     console.warn("confirm button error")
   }
 }
@@ -49,21 +30,21 @@ async function process2() {
     if (!check1.checked) {
       check1.click()
     }
-  } catch {
+  } catch(e) {
     console.warn("check item error")
   }
 
   try {
     let btn1 = await waitItem(".btn-base.c-primary")
     btn1.click()
-  } catch {
+  } catch(e) {
     console.warn("confirm redeem error")
   }
 
   try {
     let btn2 = await waitItem("dialog .btn-primary")
     btn2.click()    
-  } catch {
+  } catch(e) {
     console.warn("confirm button error")
   }
 }
@@ -72,7 +53,7 @@ async function process3() {
   try {
     let btn1 = await waitItem(".btn.btn--primary")
     btn1.click()
-  } catch {
+  } catch(e) {
     console.warn("confirm redeem error")
   }
 }

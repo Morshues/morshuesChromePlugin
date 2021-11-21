@@ -74,12 +74,12 @@
         "https://fuli.gamer.com.tw/buyD.php?ad=1&sn=*",
         "https://fuli.gamer.com.tw/message_done.php?type=3&sn=*"
       ],
-      "js": ["func/gamer_ad_clicker/script.js"],
+      "js": ["common/common.js", "func/gamer_ad_clicker/script.js"],
       "run_at": "document_end"
     },{
       // google_ad_clicker
       "matches": ["https://*.safeframe.googlesyndication.com/safeframe/*"],
-      "js": ["func/google_ad_clicker/script.js"],
+      "js": ["common/common.js", "func/google_ad_clicker/script.js"],
       "run_at": "document_end",
       "all_frames": true
     }
