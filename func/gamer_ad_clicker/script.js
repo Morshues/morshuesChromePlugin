@@ -1,61 +1,17 @@
 
-function addButton(parentNode, text, callback) {
-  var btn = document.createElement('input')
-  btn.type = 'button'
-  btn.value = text
-  btn.style = 'position:fixed;top:100px'
-  btn.onclick = callback
-  parentNode.append(btn)
-}
-
 async function process1() {
-  try {
-    let btn1 = await waitItem(".btn-base.c-accent-o")
-    btn1.click()    
-  } catch(e) {
-    console.warn("redeem button error")
-  }
-
-  try {
-    let btn2 = await waitItem("dialog .btn-primary")
-    btn2.click()    
-  } catch(e) {
-    console.warn("confirm button error")
-  }
+  await waitAndClick(waitItem(".btn-base.c-accent-o"), { tag: "Redeem Button" })
+  await waitAndClick(waitItem("dialog .btn-primary"), { tag: "Confirm Button" })
 }
 
 async function process2() {
-  try {
-    let check1 = await waitItem("#agree-confirm")
-    if (!check1.checked) {
-      check1.click()
-    }
-  } catch(e) {
-    console.warn("check item error")
-  }
-
-  try {
-    let btn1 = await waitItem(".btn-base.c-primary")
-    btn1.click()
-  } catch(e) {
-    console.warn("confirm redeem error")
-  }
-
-  try {
-    let btn2 = await waitItem("dialog .btn-primary")
-    btn2.click()    
-  } catch(e) {
-    console.warn("confirm button error")
-  }
+  await waitAndCheck(waitItem("#agree-confirm"), { tag: "Policy CheckBox" })
+  await waitAndClick(waitItem(".btn-base.c-primary"), { tag: "Confirm Redeem" })
+  await waitAndClick(waitItem("dialog .btn-primary"), { tag: "Confirm Button" })
 }
 
 async function process3() {
-  try {
-    let btn1 = await waitItem(".btn.btn--primary")
-    btn1.click()
-  } catch(e) {
-    console.warn("confirm redeem error")
-  }
+  await waitAndClick(waitItem(".btn.btn--primary"), { tag: "Confirm Redeem" })
 }
 
 function main() {

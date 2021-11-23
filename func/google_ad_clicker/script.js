@@ -1,52 +1,20 @@
 
 async function ad1() {
-  try {
-    let btn1 = await waitItem(".rewardResumebutton")
-    btn1.click()
-    console.log("clicked resume")
-  } catch(e) {
-    console.warn("resume reward error")
-  }
-
-  await sleep(500)
-
-  // countDown
-  count = 100
-  while (document.querySelector(".rewardedAdUiAttribution").innerText != "") {
-    await sleep(500)
-    count--
-    if (count <= 0) {
-      console.log("rewardedAdUiAttribution not found")
-      break
-    }
-  }
-  console.log("clicked rewardedAdUiAttribution if found")
-
-  try {
-    let btn2 = await waitItem(".videoAdUiSkipButton")
-    btn2.click()
-    console.log("clicked skip")
-  } catch(e) {
-    console.warn("skip video error")
-  }
+  await waitAndClick(waitItem(".rewardResumebutton"), { tag: "Resume Reward" })
+  await sleep(3000)
+  await waitAndNope(
+    waitCondition(() => { return document.querySelector(".rewardedAdUiAttribution").innerText == "" }),
+    { tag: "Count Down" } 
+  )
+  await waitAndClick(waitItem(".videoAdUiSkipButton"), { tag: "Skip Video" })
 }
 
 async function ad2() {
-  try {
-    await waitCondition(() => { return document.querySelector("#count_down").style.visibility == 'hidden' })
-    console.log("wait count_down success")
-  } catch(e) {
-    console.warn("wait count_down error")
-  }
-
-  try {
-    let btn1 = await waitItem("#close_button")
-    btn1.click()
-    console.log("clicked skip")
-  } catch(e) {
-    console.warn("skip video error")
-  }
-
+  await waitAndNope(
+    waitCondition(() => { return document.querySelector("#count_down").style.visibility == 'hidden' }),
+    { tag: "Count Down" } 
+  )
+  await waitAndClick(waitItem("#close_button"), { tag: "Close Button" })
 }
 
 function main() {
@@ -61,8 +29,8 @@ function main() {
 }
 
 chrome.storage.sync.get('s_gameradclicker', function (result) {
-    if (result.s_gameradclicker) {
-      setTimeout(main, 500)
-    }
+  if (result.s_gameradclicker) {
+    setTimeout(main, 500)
+  }
 })
 

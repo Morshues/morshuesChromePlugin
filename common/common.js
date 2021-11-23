@@ -32,3 +32,41 @@ async function waitCondition(condition) {
     resolve()
   })
 }
+
+async function waitAndAction(promise, action, params = {}) {
+  try {
+    let item = await promise
+    if (typeof action == 'function') {
+      action(item)
+    } else {
+      console.log("Wait For null Action")
+    }
+    if (params.successMsg) console.log(params.successMsg)
+    else if (params.tag) console.log(params.tag + " Actioned") 
+  } catch(e) {
+    if (params.failureMsg) console.info(params.failureMsg)
+    else if (params.tag) console.log("%c" + params.tag + " Error", "color:lightblue;", e) 
+  }
+}
+
+async function waitAndNope(promise, params = {}) {
+  await waitAndAction(promise, item => {}, params)
+}
+
+async function waitAndClick(promise, params = {}) {
+  await waitAndAction(promise, item => item.click(), params)
+}
+
+async function waitAndCheck(promise, params = {}) {
+  await waitAndAction(promise, item => { if (!item.checked) item.click() }, params)
+}
+
+
+function addFloatButton(parentNode, text, callback) {
+  var btn = document.createElement('input')
+  btn.type = 'button'
+  btn.value = text
+  btn.style = 'position:fixed;top:100px'
+  btn.onclick = callback
+  parentNode.append(btn)
+}
