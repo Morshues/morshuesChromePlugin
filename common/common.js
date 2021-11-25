@@ -3,10 +3,10 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function waitItem(query) {
+async function waitItem(query, index = 0) {
   return new Promise(async(resolve, reject) => {
     count = 100
-    while (document.querySelector(query) == null) {
+    while (document.querySelectorAll(query)[index] == null) {
       await sleep(100)
       count--
       if (count <= 0) {
@@ -14,7 +14,7 @@ async function waitItem(query) {
         return
       }
     }
-    resolve(document.querySelector(query))
+    resolve(document.querySelectorAll(query)[index])
   })
 }
 

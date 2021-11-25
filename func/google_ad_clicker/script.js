@@ -6,7 +6,7 @@ async function ad1() {
     waitCondition(() => { return document.querySelector(".rewardedAdUiAttribution").innerText == "" }),
     { tag: "Count Down" } 
   )
-  await waitAndClick(waitItem(".videoAdUiSkipButton"), { tag: "Skip Video" })
+  await waitAndClick(waitItem("img", 2), { tag: "Close Video" })
 }
 
 async function ad2() {
