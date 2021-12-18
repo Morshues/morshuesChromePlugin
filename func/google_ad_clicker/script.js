@@ -19,6 +19,7 @@ async function ad2() {
 
 function main() {
   console.log("running google ad clicker")
+  removeLeavePageEvents()
   if (document.querySelector(".rewardResumebutton") != null) {
     ad1()
   } else if (document.querySelector("#reward_close_button_widget #count_down_container #count_down") != null) {
@@ -28,8 +29,8 @@ function main() {
   }
 }
 
-chrome.storage.sync.get('s_gameradclicker', function (result) {
-  if (result.s_gameradclicker) {
+chrome.storage.sync.get('s_googleadclicker', function (result) {
+  if (result.s_googleadclicker) {
     setTimeout(main, 500)
   }
 })

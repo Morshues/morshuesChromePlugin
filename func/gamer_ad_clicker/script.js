@@ -26,4 +26,8 @@ function main() {
   }
 }
 
-main()
+chrome.storage.sync.get('s_gameradclicker', function (result) {
+  if (result.s_gameradclicker) {
+    setTimeout(main, 500)
+  }
+})
