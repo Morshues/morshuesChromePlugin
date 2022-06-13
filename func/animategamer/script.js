@@ -39,8 +39,11 @@ function find_block() {
 
 function click_comment(tar_block) {
   links = tar_block.getElementsByClassName("j83agx80 fv0vnmcu hpfvmrgz");
-  if (links[links.length-1].innerText.startsWith("檢視另") || links[links.length-1].innerText.startsWith("查看更多留言")) {
-    links[links.length-1].click();
+  let last_link = links[links.length-1];
+  if (last_link.innerText.startsWith("檢視另")
+    || last_link.innerText.startsWith("查看更多留言")
+    || (last_link.innerText.startsWith("View ") && last_link.innerText.endsWith("more comments"))) {
+    last_link.click();
 
     scan_max(tar_block);
   }
