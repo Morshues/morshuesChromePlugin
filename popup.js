@@ -39,7 +39,7 @@ function loadUnit(name) {
 function loadLib(name) {
   appendDiv(name);
   loadScript('func/' + name + '/model.js');
-  $('#' + name).load(chrome.extension.getURL('func/' + name + '/block.html'), function() {
+  $('#' + name).load(chrome.runtime.getURL('func/' + name + '/block.html'), function() {
     loadScript('func/' + name + '/block_script.js');
   });
 }
