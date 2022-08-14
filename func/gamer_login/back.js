@@ -1,4 +1,6 @@
 // TODO: haven't load the dataModel from storage yet
+import { GamerLoginModel } from '/func/gamer_login/model.js'
+
 var dataModel = new GamerLoginModel();
 
 function getToken(timestamp, callback) {
@@ -53,7 +55,7 @@ function login(token, callback) {
 }
 
 function main() {
-  timestamp = Date.now();
+  const timestamp = Date.now();
 
   if (dataModel.isLoggedIn()) {
     return;

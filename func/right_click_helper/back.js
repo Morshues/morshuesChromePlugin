@@ -12,27 +12,45 @@ function recoveryElement(info, tab) {
 
 function genElementInstruction(info, tab) {
   chrome.tabs.sendMessage(tab.id, "genElInstuction", function(result) {
-    // console.log(result);
+    console.log(result);
   });
 }
 
+function onMenuClicked(info, tab) {
+  switch (info.menuItemId) {
+    case 'ele_delete':
+      deleteElement(info, tab);
+      break;
+    case 'ele_recover':
+      recoveryElement(info, tab);
+      break;
+    case 'ele_ins_gen':
+      genElementInstruction(info, tab);
+      break;
+  }
+}
+
+const rootBtn = 'root'
+
 chrome.contextMenus.create({
+  id: 'ele_delete',
   title: '刪除元素', 
   contexts:['all'], 
   parentId: rootBtn,
-  onclick: deleteElement,
 });
 
 chrome.contextMenus.create({
+  id: 'ele_recover',
   title: '復原元素', 
   contexts:['all'], 
   parentId: rootBtn,
-  onclick: recoveryElement,
 });
 
 chrome.contextMenus.create({
+  id: 'ele_ins_gen',
   title: '產生元素指令', 
   contexts:['all'], 
   parentId: rootBtn,
-  onclick: genElementInstruction,
 });
+
+chrome.contextMenus.onClicked.addListener(onMenuClicked)

@@ -24,46 +24,69 @@ function vietnameseWord2(info, tab) {
   createNewTab('https://www.dict.com/%E8%B6%8A%E5%8D%97%E8%AF%AD-%E6%B1%89%E8%AF%AD/' + info.selectionText);
 }
 
+function onMenuClicked(info, tab) {
+  switch (info.menuItemId) {
+    case 'dic_hjenglish':
+      japaneseWord(info, tab);
+      break;
+    case 'dic_yahoo':
+      englishWord(info, tab);
+      break;
+    case 'dic_vietnamese':
+      vietnamesePronunciation(info, tab);
+      break;
+    case 'dic_vietnamese_1':
+      vietnameseWord1(info, tab);
+      break;
+    case 'dic_vietnamese_2':
+      vietnameseWord2(info, tab);
+      break;
+  }
+}
+
 function createMenu() {
-  rootBtn = chrome.contextMenus.create({
+  const rootBtn = chrome.contextMenus.create({
+    id: 'root',
     title: '查字典', 
     contexts:['all'],
   });
 
   chrome.contextMenus.create({
+    id: 'dic_hjenglish',
     title: '滬江日文字典', 
     contexts:['all'], 
     parentId: rootBtn,
-    onclick: japaneseWord,
   });
 
   chrome.contextMenus.create({
+    id: 'dic_yahoo',
     title: '雅虎英文字典', 
     contexts:['all'], 
     parentId: rootBtn,
-    onclick: englishWord,
   });
 
   chrome.contextMenus.create({
+    id: 'dic_vietnamese_pron',
     title: '越文發音字典', 
     contexts:['all'], 
     parentId: rootBtn,
-    onclick: vietnamesePronunciation,
   });
 
   chrome.contextMenus.create({
+    id: 'dic_vietnamese_1',
     title: '越文字典1', 
     contexts:['all'], 
     parentId: rootBtn,
-    onclick: vietnameseWord1,
   });
 
   chrome.contextMenus.create({
+    id: 'dic_vietnamese_2',
     title: '越文字典2', 
     contexts:['all'], 
     parentId: rootBtn,
-    onclick: vietnameseWord2,
   });
+
+  chrome.contextMenus.onClicked.addListener(onMenuClicked)
 }
 
 createMenu();
