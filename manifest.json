@@ -82,6 +82,11 @@
       "js": ["common/common.js", "func/google_ad_clicker/script.js"],
       "run_at": "document_end",
       "all_frames": true
+    },{
+      "matches": ["https://rent.591.com.tw/home/*", "https://rent.591.com.tw/map-index.html*"],
+      "js": ["func/rent591/model.js", "func/rent591/script.js"],
+      "css": ["func/rent591/script.css"],
+      "run_at": "document_end"
     }
   ],
   "background": {

@@ -47,6 +47,7 @@ function loadLib(name) {
 loadLib("calendar");
 loadLib("steamgift");
 loadLib("steamtool");
+loadLib("rent591");
 loadLib("daily_check");
 loadLib("fb_stalker");
 loadLib("gamer_ad_clicker");

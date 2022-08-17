@@ -23,7 +23,7 @@ function main() {
   tabs.childNodes[1].className += ' active';
 
   $('#tabs li').click(function(e){
-    var tab_name = e.target.className.match(/ ?tab-name-([A-Za-z_]+) ?/)[1];
+    var tab_name = e.target.className.match(/ ?tab-name-([A-Za-z0-9_]+) ?/)[1];
     $('.tab-hd.active').removeClass('active');
     $('.tab-hd.tab-name-'+tab_name).addClass('active');
     $('.tab-pane.active').removeClass('active');

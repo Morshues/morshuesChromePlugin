@@ -1,0 +1,28 @@
+.item-status {
+  width: 200px;
+  text-align: center;
+}
+
+.item-status-none:after {
+  content: "none";
+  color: orange;
+}
+
+.item-status-up:after {
+  content: "up";
+  color: green;
+}
+
+.item-status-down:after {
+  content: "down";
+  color: grey;
+}
+
+
+.list-item-up {
+  background: yellow;
+}
+
+.list-item-down {
+  opacity: 0.3;
+}
