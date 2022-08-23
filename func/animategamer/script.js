@@ -1,4 +1,7 @@
 var dataModel = new AnimateGamerModel();
+let ifClose = false;
+const MAX_SCROLL_LIMIT = 30;
+let scrollCount = 0;
 
 function findNodeByRegex(blocks, regexText, useInnerText = false) {
   // var aTags = parent.getElementsByTagName(tagName);
@@ -21,8 +24,12 @@ function findNodeByRegex(blocks, regexText, useInnerText = false) {
 
 /* Find */
 function find_block() {
-  blocks = document.getElementsByClassName("du4w35lb k4urcfbm l9j0dhe7 sjgh65i0");
+  blocks = document.getElementsByClassName("g4tp4svg mfclru0v om3e55n1 p8bdhjjv");
   if (blocks <= 0) {
+    if (scrollCount >= MAX_SCROLL_LIMIT) {
+      return;
+    }
+    scrollCount++;
     setTimeout(find_block, 1000);
     return;    
   }
@@ -38,7 +45,7 @@ function find_block() {
 }
 
 function click_comment(tar_block) {
-  links = tar_block.getElementsByClassName("j83agx80 fv0vnmcu hpfvmrgz");
+  links = tar_block.getElementsByClassName("alzwoclg lxowtz8q aeinzg81");
   let last_link = links[links.length-1];
   if (last_link.innerText.startsWith("檢視另")
     || last_link.innerText.startsWith("查看更多留言")
@@ -50,7 +57,7 @@ function click_comment(tar_block) {
 }
 
 function scan_max(tar_block) {
-  comments = tar_block.getElementsByClassName("ecm0bbzt e5nlhep0 a8c37x1j");
+  comments = tar_block.getElementsByClassName("d2hqwtrz o9wcebwi b6ax4al1");
   if (comments.length < 3) {
     setTimeout(function() { scan_max(tar_block); }, 1000);
     return;
@@ -82,7 +89,7 @@ function answer_get(answer) {
   dataModel.answer = answer;
   dataModel.date_str = dataModel.TodayText();
   dataModel.save(function() {
-    window.close();
+    ifClose = true;
   });
 }
 
@@ -123,11 +130,20 @@ function auto_answer() {
   setTimeout(auto_answer, 60000);  
 }
 
+function auto_close() {
+  if (ifClose) {
+    window.close();    
+  } else {
+    setTimeout(auto_close, 1000);
+  }
+}
+
 /* Main Method */
 dataModel.load(function() {
   if (document.URL.match(/https\:\/\/www\.facebook\.com\/p?g?\/?animategamer\.*/i)) {
     if (dataModel.enable && !dataModel.isSameDay()) {
       find_block();
+      auto_close();
     }
   } else {
     if (!dataModel.isSameDay()) {
