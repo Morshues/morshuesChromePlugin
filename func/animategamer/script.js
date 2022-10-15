@@ -24,42 +24,60 @@ function findNodeByRegex(blocks, regexText, useInnerText = false) {
 
 /* Find */
 function find_block() {
-  blocks = document.getElementsByClassName("g4tp4svg mfclru0v om3e55n1 p8bdhjjv");
-  if (blocks <= 0) {
-    if (scrollCount >= MAX_SCROLL_LIMIT) {
-      return;
-    }
-    scrollCount++;
-    setTimeout(find_block, 1000);
-    return;    
+  if (scrollCount >= MAX_SCROLL_LIMIT) {
+    return;
   }
 
-  tar_block = findNodeByRegex(blocks, "\\[" + dataModel.TodayText() + "\\]", true);
+  const dayText = "[" + dataModel.TodayText() + "]";
+  console.log("dayText:", dayText)
+  const dayNode = Array.from(document.querySelectorAll('div'))
+    .find(el => el.textContent === dayText);
 
-  if (tar_block == null) {
+  if (dayNode == null) {
+    scrollCount++;
     window.scrollTo(0, document.body.scrollHeight);
     setTimeout(find_block, 1000);
-  } else {
-    click_comment(tar_block);
+    return;
   }
+
+  let targetNode = dayNode;
+  while (targetNode != document.body) {
+    if (targetNode.textContent.includes("檢視另")
+      || targetNode.textContent.includes("查看更多留言")
+      || targetNode.textContent.includes("more comments")
+    ) {
+      break;
+    }
+    targetNode = targetNode.parentNode;
+  }
+
+  if (targetNode == document.body) {
+    console.error("targetNode not found")
+    return;
+  }
+
+  click_comment(targetNode);
 }
 
-function click_comment(tar_block) {
-  links = tar_block.getElementsByClassName("alzwoclg lxowtz8q aeinzg81");
-  let last_link = links[links.length-1];
-  if (last_link.innerText.startsWith("檢視另")
-    || last_link.innerText.startsWith("查看更多留言")
-    || (last_link.innerText.startsWith("View ") && last_link.innerText.endsWith("more comments"))) {
-    last_link.click();
+function click_comment(targetNode) {
+  let moreNode = Array.from(targetNode.querySelectorAll('span'))
+    .find(el => el.innerText.startsWith("檢視另"));
 
-    scan_max(tar_block);
+  if (moreNode == null) {
+    console.error("moreNode not found")
+    return;
   }
+  moreNode.click();
+
+  scan_max(targetNode);
 }
 
-function scan_max(tar_block) {
-  comments = tar_block.getElementsByClassName("d2hqwtrz o9wcebwi b6ax4al1");
+function scan_max(targetNode) {
+  const comments = Array.from(targetNode.querySelectorAll("div:not(:has(*))"))
+    .filter(el => (el.textContent >= 1 && el.textContent <= 4));
+
   if (comments.length < 3) {
-    setTimeout(function() { scan_max(tar_block); }, 1000);
+    setTimeout(function() { scan_max(targetNode); }, 1000);
     return;
   }
 
