@@ -61,7 +61,7 @@ function find_block() {
 
 function click_comment(targetNode) {
   let moreNode = Array.from(targetNode.querySelectorAll('span'))
-    .find(el => el.innerText.startsWith("檢視另"));
+    .find(el => el.innerText.startsWith("檢視另") || el.innerText.startsWith("查看更多留言"));
 
   if (moreNode == null) {
     console.error("moreNode not found")
