@@ -1,7 +1,7 @@
-// TODO: haven't load the dataModel from storage yet
 import { GamerLoginModel } from '/func/gamer_login/model.js'
 
-var dataModel = new GamerLoginModel();
+const ALARM_NAME = 'gamer_login_daily';
+const PERIOD_IN_MINUTES = 60;
 
 function getToken(timestamp, callback) {
   fetch("https://www.gamer.com.tw/ajax/get_csrf_token.php?_="+timestamp.toString(), {
@@ -55,20 +55,43 @@ function login(token, callback) {
 }
 
 function main() {
-  const timestamp = Date.now();
+  const dataModel = new GamerLoginModel();
+  dataModel.load(function() {
+    if (dataModel.isLoggedIn()) {
+      return;
+    }
 
-  if (dataModel.isLoggedIn()) {
-    return;
-  }
-
-  getToken(timestamp, function(text) {
-    login(text, function(json) {
-      dataModel.save(timestamp, json, function() {
-        console.log(dataModel.dateStr(), json, "saved");
+    const timestamp = Date.now();
+    getToken(timestamp, function(text) {
+      login(text, function(json) {
+        dataModel.save(timestamp, json, function() {
+          console.log(dataModel.dateStr(), json, "saved");
+        });
       });
     });
-  })  
+  });
 }
 
-main();
-setInterval(main, 600000);
+function ensureAlarm() {
+  chrome.alarms.get(ALARM_NAME, (alarm) => {
+    if (!alarm) {
+      chrome.alarms.create(ALARM_NAME, { periodInMinutes: PERIOD_IN_MINUTES });
+    }
+  });
+}
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === ALARM_NAME) {
+    main();
+  }
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+  ensureAlarm();
+  main();
+});
+
+chrome.runtime.onStartup.addListener(() => {
+  ensureAlarm();
+  main();
+});

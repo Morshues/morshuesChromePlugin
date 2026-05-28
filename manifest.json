@@ -8,7 +8,8 @@
   "permissions": [
     "tabs",
     "storage",
-    "contextMenus"
+    "contextMenus",
+    "alarms"
   ],
   "action": {
     "default_icons": {
