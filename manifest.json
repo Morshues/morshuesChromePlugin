@@ -44,21 +44,12 @@
       "js": ["func/steamtool/model.js", "func/steamtool/script.js"],
       "run_at": "document_end"
     },{
-      "run_at" : "document_end",
-      "matches": ["http://twtraffic.tra.gov.tw/twrail/TW_Quicksearch.aspx"],
-      "css": ["func/twtraffic/style.css"],
-      "js": ["func/twtraffic/script.js"]
-    },{
       "matches": ["http://*.pixnet.net/*"],
       "js": ["func/pixnet_script.js"],
       "run_at": "document_end"
     },{
       "matches": ["https://udn.com/*"],
       "js": ["func/udn_script.js"],
-      "run_at": "document_end"
-    },{
-      "matches": ["https://www.facebook.com/*"],
-      "js": ["func/fb_stalker/model.js", "func/fb_stalker/script.js"],
       "run_at": "document_end"
     },{
       "matches": ["https://www.facebook.com/animategamer/*", "https://www.facebook.com/pg/animategamer/posts/"],
@@ -83,11 +74,6 @@
       "js": ["common/common.js", "func/google_ad_clicker/script.js"],
       "run_at": "document_end",
       "all_frames": true
-    },{
-      "matches": ["https://rent.591.com.tw/home/*", "https://rent.591.com.tw/map-index.html*"],
-      "js": ["func/rent591/model.js", "func/rent591/script.js"],
-      "css": ["func/rent591/script.css"],
-      "run_at": "document_end"
     }
   ],
   "background": {
