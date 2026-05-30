@@ -46,8 +46,6 @@ function loadLib(name) {
 
 loadLib("calendar");
 loadLib("steamgift");
-loadLib("steamtool");
-loadLib("daily_check");
 loadLib("gamer_ad_clicker");
 
 // This Unit load at final for lib re-consruct

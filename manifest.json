@@ -26,22 +26,12 @@
       "js": ["func/right_click_helper/script.js"],
       "run_at": "document_end"
     },{
-      "matches": ["<all_urls>"],
-      "js": ["func/daily_check/model.js", "func/daily_check/script.js"],
-      "run_at": "document_end"
-    },{
       "matches": [
         "https://www.steamgifts.com/giveaway/*", 
         "https://www.steamgifts.com/giveaways/search?type=wishlist",
         "https://www.steamgifts.com/giveaways/search?page=2&type=wishlist"
       ],
       "js": ["func/steamgift/script.js"],
-      "run_at": "document_end"
-    },{
-      "matches": [
-        "https://steamcommunity.com/id/Morshues/inventory/"
-      ],
-      "js": ["func/steamtool/model.js", "func/steamtool/script.js"],
       "run_at": "document_end"
     },{
       "matches": ["http://*.pixnet.net/*"],
