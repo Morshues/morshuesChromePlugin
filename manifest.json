@@ -11,6 +11,9 @@
     "contextMenus",
     "alarms"
   ],
+  "host_permissions": [
+    "*://*.gamer.com.tw/*"
+  ],
   "action": {
     "default_icons": {
       "16": "icon.png",
