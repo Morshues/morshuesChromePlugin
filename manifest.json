@@ -22,10 +22,6 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["func/right_click_helper/script.js"],
-      "run_at": "document_end"
-    },{
       "matches": [
         "https://www.steamgifts.com/giveaway/*", 
         "https://www.steamgifts.com/giveaways/search?type=wishlist",

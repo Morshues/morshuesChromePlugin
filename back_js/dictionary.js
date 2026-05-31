@@ -47,46 +47,45 @@ function onMenuClicked(info, tab) {
 function createMenu() {
   const rootBtn = chrome.contextMenus.create({
     id: 'root',
-    title: '查字典', 
+    title: '查字典',
     contexts:['all'],
   });
 
   chrome.contextMenus.create({
     id: 'dic_hjenglish',
-    title: '滬江日文字典', 
-    contexts:['all'], 
+    title: '滬江日文字典',
+    contexts:['all'],
     parentId: rootBtn,
   });
 
   chrome.contextMenus.create({
     id: 'dic_yahoo',
-    title: '雅虎英文字典', 
-    contexts:['all'], 
+    title: '雅虎英文字典',
+    contexts:['all'],
     parentId: rootBtn,
   });
 
   chrome.contextMenus.create({
     id: 'dic_vietnamese_pron',
-    title: '越文發音字典', 
-    contexts:['all'], 
+    title: '越文發音字典',
+    contexts:['all'],
     parentId: rootBtn,
   });
 
   chrome.contextMenus.create({
     id: 'dic_vietnamese_1',
-    title: '越文字典1', 
-    contexts:['all'], 
+    title: '越文字典1',
+    contexts:['all'],
     parentId: rootBtn,
   });
 
   chrome.contextMenus.create({
     id: 'dic_vietnamese_2',
-    title: '越文字典2', 
-    contexts:['all'], 
+    title: '越文字典2',
+    contexts:['all'],
     parentId: rootBtn,
   });
-
-  chrome.contextMenus.onClicked.addListener(onMenuClicked)
 }
 
-createMenu();
+chrome.runtime.onInstalled.addListener(createMenu);
+chrome.contextMenus.onClicked.addListener(onMenuClicked);
