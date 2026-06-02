@@ -4,22 +4,19 @@ const LOG_TAG = 'Gamer Login';
 const ALARM_NAME = 'gamer_login_daily';
 const PERIOD_IN_MINUTES = 60;
 
-function getToken(timestamp, callback) {
-  fetch("https://www.gamer.com.tw/ajax/get_csrf_token.php?_="+timestamp.toString(), {
+async function getToken(timestamp) {
+  const response = await fetch("https://www.gamer.com.tw/ajax/get_csrf_token.php?_="+timestamp.toString(), {
     "headers": {
       "accept": "*/*",
     },
     "method": "GET",
     "credentials": "include"
-  }).then((response) => {
-    return response.text();
-  }).then((resText) => {
-    callback(resText);
   });
+  return response.text();
 }
 
-function login(token, callback) {
-  fetch("https://www.gamer.com.tw/ajax/signin.php", {
+async function login(token) {
+  const response = await fetch("https://www.gamer.com.tw/ajax/signin.php", {
     "headers": {
       "accept": "application/json, text/javascript, */*; q=0.01",
       "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -27,31 +24,24 @@ function login(token, callback) {
     "body": "action=1&token="+token,
     "method": "POST",
     "credentials": "include"
-  }).then((response) => {
-    return response.json();
-  }).then((resJson) => {
-    callback(resJson);
   });
+  return response.json();
 }
 
-function main() {
+async function main() {
   const dataModel = new GamerLoginModel();
-  dataModel.load(function() {
-    if (dataModel.isLoggedIn()) {
-      console.log(LOG_TAG, 'Checked and Logged in')
-      return;
-    }
+  await dataModel.load();
+  if (dataModel.isLoggedIn()) {
+    console.log(LOG_TAG, 'Checked and Logged in')
+    return;
+  }
 
-    const timestamp = Date.now();
-    getToken(timestamp, function(token) {
-      console.log(LOG_TAG, 'Got token:', token)
-      login(token, function(json) {
-        dataModel.save(timestamp, json, function() {
-          console.log(LOG_TAG, dataModel.dateStr(), json, "saved");
-        });
-      });
-    });
-  });
+  const timestamp = Date.now();
+  const token = await getToken(timestamp);
+  console.log(LOG_TAG, 'Got token:', token)
+  const json = await login(token);
+  await dataModel.save(timestamp, json);
+  console.log(LOG_TAG, dataModel.dateStr(), json, "saved");
 }
 
 function ensureAlarm() {
@@ -64,16 +54,16 @@ function ensureAlarm() {
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === ALARM_NAME) {
-    main();
+    return main();
   }
 });
 
 chrome.runtime.onInstalled.addListener(() => {
   ensureAlarm();
-  main();
+  return main();
 });
 
 chrome.runtime.onStartup.addListener(() => {
   ensureAlarm();
-  main();
+  return main();
 });

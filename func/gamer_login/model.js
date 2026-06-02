@@ -19,7 +19,7 @@ export class GamerLoginModel {
     return d1 == d2;
   }
 
-  save = function(timestamp, json, callback) {
+  save = function(timestamp, json) {
     this.lastUpdatedTime = timestamp;
     this.isSuccess = false;
     if (json.hasOwnProperty("data")
@@ -27,22 +27,17 @@ export class GamerLoginModel {
       this.isSuccess = true;
     }
 
-    let self = this;
-    chrome.storage.sync.set({
-      'gamer_login': { 'lastUpdatedTime': self.lastUpdatedTime, 'isSuccess': self.isSuccess, 'msg': self.msg }},
-      callback
-    );
-  };
-  
-  load = function(callback) {
-    let self = this;
-    chrome.storage.sync.get('gamer_login', function (result) {
-      if (result.gamer_login != null) {
-        self.lastUpdatedTime = result.gamer_login.lastUpdatedTime || 0;
-        self.isSuccess = result.gamer_login.isSuccess || false;
-        self.msg = result.gamer_login.msg || '';
-      }
-      callback();
+    return chrome.storage.sync.set({
+      'gamer_login': { 'lastUpdatedTime': this.lastUpdatedTime, 'isSuccess': this.isSuccess, 'msg': this.msg }
     });
+  };
+
+  load = async function() {
+    const result = await chrome.storage.sync.get('gamer_login');
+    if (result.gamer_login != null) {
+      this.lastUpdatedTime = result.gamer_login.lastUpdatedTime || 0;
+      this.isSuccess = result.gamer_login.isSuccess || false;
+      this.msg = result.gamer_login.msg || '';
+    }
   }
 }
