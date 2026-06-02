@@ -1,4 +1,4 @@
-import { GamerLoginModel } from '/func/gamer_login/model.js'
+import '/func/gamer_login/model.js'
 
 const LOG_TAG = 'Gamer Login';
 const ALARM_NAME = 'gamer_login_daily';
@@ -32,6 +32,7 @@ async function main() {
   const dataModel = new GamerLoginModel();
   await dataModel.load();
   if (dataModel.isLoggedIn()) {
+    await dataModel.touch(Date.now());
     console.log(LOG_TAG, 'Checked and Logged in')
     return;
   }
@@ -46,7 +47,9 @@ async function main() {
 
 function ensureAlarm() {
   chrome.alarms.get(ALARM_NAME, (alarm) => {
-    if (!alarm) {
+    // Re-create when missing or when the stored period no longer matches the
+    // current constant; create() with an existing name overwrites it.
+    if (!alarm || alarm.periodInMinutes !== PERIOD_IN_MINUTES) {
       chrome.alarms.create(ALARM_NAME, { periodInMinutes: PERIOD_IN_MINUTES });
     }
   });

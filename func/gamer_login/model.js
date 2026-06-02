@@ -1,4 +1,4 @@
-export class GamerLoginModel {
+class GamerLoginModel {
   constructor() {
     this.lastUpdatedTime = 0;
     this.isSuccess = false;
@@ -27,6 +27,17 @@ export class GamerLoginModel {
       this.isSuccess = true;
     }
 
+    return this.persist();
+  };
+
+  // Refresh the last-checked time without changing the sign-in result,
+  // used when we skip the request because we already signed in today.
+  touch = function(timestamp) {
+    this.lastUpdatedTime = timestamp;
+    return this.persist();
+  };
+
+  persist = function() {
     return chrome.storage.sync.set({
       'gamer_login': { 'lastUpdatedTime': this.lastUpdatedTime, 'isSuccess': this.isSuccess, 'msg': this.msg }
     });
@@ -41,3 +52,7 @@ export class GamerLoginModel {
     }
   }
 }
+
+// Expose globally so this file works both as a classic script (popup) and
+// as a side-effect import in the module service worker (back.js).
+globalThis.GamerLoginModel = GamerLoginModel;

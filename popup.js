@@ -45,6 +45,7 @@ function loadLib(name) {
 }
 
 loadLib("calendar");
+loadLib("gamer_login");
 loadLib("steamgift");
 loadLib("gamer_ad_clicker");
 
