@@ -47,6 +47,7 @@ function loadLib(name) {
 loadLib("calendar");
 loadLib("gamer_login");
 loadLib("steamgift");
+loadLib("ptt_game_notifier");
 loadLib("gamer_ad_clicker");
 
 // This Unit load at final for lib re-consruct

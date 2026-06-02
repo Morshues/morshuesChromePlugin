@@ -12,7 +12,9 @@
     "alarms"
   ],
   "host_permissions": [
-    "*://*.gamer.com.tw/*"
+    "*://*.gamer.com.tw/*",
+    "https://www.ptt.cc/*",
+    "https://api.telegram.org/*"
   ],
   "action": {
     "default_icons": {

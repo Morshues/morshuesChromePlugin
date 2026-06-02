@@ -1,5 +1,6 @@
 import "/back_js/dictionary.js"
 import "/func/gamer_login/back.js"
+import "/func/ptt_game_notifier/back.js"
 
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
