@@ -15,7 +15,7 @@ function wish_list_scan() {
 
   const items = [];
   const data = Array.from(document.querySelectorAll("div:not(.pinned-giveaways) > .giveaway__row-outer-wrap > .giveaway__row-inner-wrap"))
-  for (let i = 1; i < data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     const curItem = data[i]
 
     // skip joined
@@ -24,13 +24,13 @@ function wish_list_scan() {
     }
 
     // skip over level
-    const overlevelSubEl = data[i].getElementsByClassName("giveaway__column--contributor-level giveaway__column--contributor-level--negative");
+    const overlevelSubEl = curItem.getElementsByClassName("giveaway__column--contributor-level giveaway__column--contributor-level--negative");
     if (overlevelSubEl.length > 0) {
       continue;
     }
 
     // skip over level - 2
-    const levelDivs = data[i].getElementsByClassName("giveaway__column--contributor-level");
+    const levelDivs = curItem.getElementsByClassName("giveaway__column--contributor-level");
     if (levelDivs.length !== 0) {
       const level = parseInt(levelDivs[0].innerHTML.match(/Level ([0-9]*)+/)[1]);
       if (level > MAX_LEVEL) {
@@ -40,17 +40,17 @@ function wish_list_scan() {
 
 
     // point of item
-    let ptsTmpStr = data[i].getElementsByClassName("giveaway__heading__thin")[0];
+    let ptsTmpStr = curItem.getElementsByClassName("giveaway__heading__thin")[0];
     if (ptsTmpStr.innerText.includes("Copies")) {
-      ptsTmpStr = data[i].getElementsByClassName("giveaway__heading__thin")[1];
+      ptsTmpStr = curItem.getElementsByClassName("giveaway__heading__thin")[1];
     }
 
     // timestamp of item
-    const timeTmpStr = data[i].getElementsByClassName("giveaway__columns")[0].childNodes[1].childNodes[2].getAttribute("data-timestamp");
+    const timeTmpStr = curItem.getElementsByClassName("giveaway__columns")[0].childNodes[1].childNodes[2].getAttribute("data-timestamp");
 
     items.push({
-      url: data[i].getElementsByClassName("giveaway__heading__name")[0].href,
-      pts: ptsTmpStr.innerText.match(/[0-9][0-9]?[0-9]?/),
+      url: curItem.getElementsByClassName("giveaway__heading__name")[0].href,
+      pts: ptsTmpStr.innerText.match(/[0-9][0-9]?[0-9]?/)[0],
       t_s: parseInt(timeTmpStr)
     });
   }
